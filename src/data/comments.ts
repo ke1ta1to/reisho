@@ -117,7 +117,11 @@ const getRandomNumber = (min: number, max: number): number =>
   Math.random() * (max - min) + min;
 
 // コメント生成関数
-export const generateComment = (type: MoodType, id: string): Comment => {
+export const generateComment = (
+  type: MoodType,
+  id: string,
+  initialProgress?: number,
+): Comment => {
   const isExcited = type === "excited";
   const commentTexts = isExcited ? EXCITED_COMMENTS : CYNICAL_COMMENTS;
   const colors = isExcited ? EXCITED_COLORS : CYNICAL_COLORS;
@@ -136,6 +140,7 @@ export const generateComment = (type: MoodType, id: string): Comment => {
     fontSize: getRandomItem(fontSizes),
     color: getRandomItem(colors),
     yPosition: getRandomNumber(5, 90), // 画面の5%～90%の位置（より広範囲）
+    initialProgress,
   };
 };
 
@@ -147,9 +152,18 @@ export const generateInitialComments = (
   const defaultCount = type === "excited" ? 25 : 15; // 盛り上がり時はより多く
   const finalCount = count ?? defaultCount;
 
-  return Array.from({ length: finalCount }, (_, index) =>
-    generateComment(type, `${type}-${Date.now()}-${index}`),
-  );
+  return Array.from({ length: finalCount }, (_, index) => {
+    // 初期コメントはランダムな進行度で画面内に配置
+    const initialProgress = Math.random() * 0.8; // 0-80%の進行度
+    const comment = generateComment(
+      type,
+      `${type}-${Date.now()}-${index}`,
+      initialProgress,
+    );
+    // 初期コメントは遅延なしで表示
+    comment.delay = 0;
+    return comment;
+  });
 };
 
 // 設定値

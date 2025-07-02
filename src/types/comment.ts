@@ -11,6 +11,7 @@ export interface Comment {
   fontSize: FontSize;
   color: string;
   yPosition: number; // Y軸位置（%）
+  initialProgress?: number; // 初期進行度（0-1）
 }
 
 export interface CommentStreamConfig {

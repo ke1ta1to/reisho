@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 冷笑アプリ - ニコニコ風コメント流し体験
 
-## Getting Started
+## 概要
 
-First, run the development server:
+冷笑モードと熱血パリピモードを切り替えられる、ニコニコ動画風のコメント流しアプリです。リアルタイムでコメントが画面を流れ、ボタン一つで雰囲気が激変します。
+
+## 特徴
+
+### 🎭 2つのモード
+
+- **冷笑モード**: 暗い背景に冷ややかなコメントが静かに流れる
+- **熱血パリピモード**: レインボー背景に激しいエフェクトとパリピなコメント
+
+### ✨ 豪華なエフェクト
+
+- ニコニコ動画風のコメント流しアニメーション
+- リアルタイムエフェクト（紙吹雪、パーティクル、ネオングロウ）
+- グリッチエフェクトとストロボライト
+- レスポンシブデザイン対応
+
+### 🎨 技術特徴
+
+- Next.js 15 + React 19 + TypeScript
+- Tailwind CSS v4
+- CSS Animations & Keyframes
+- パフォーマンス最適化済み
+
+## 使い方
+
+1. 画面中央のボタンをクリック
+2. 冷笑モード ⇔ 熱血パリピモードを切り替え
+3. コメントの流れと雰囲気の変化を楽しむ
+
+## 開発
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# 依存関係のインストール
+pnpm install
+
+# 開発サーバー起動
 pnpm dev
-# or
-bun dev
+
+# ビルド
+pnpm build
+
+# Lint
+pnpm lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## デプロイ
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Vercel での自動デプロイに対応しています。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ライセンス
 
-## Learn More
+MIT License
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**冷笑アプリ** - Claude Code で作成

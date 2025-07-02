@@ -48,26 +48,45 @@ const Comment: React.FC<CommentProps> = memo(({ comment, onAnimationEnd }) => {
   };
 
   useEffect(() => {
-    // 遅延表示
+    // 初期コメントは即座に表示、新規コメントは遅延表示
+    const delay = comment.initialProgress !== undefined ? 0 : comment.delay;
+
     const showTimer = setTimeout(() => {
       setIsVisible(true);
-    }, comment.delay);
+    }, delay);
 
     // アニメーション終了後の削除
-    const hideTimer = setTimeout(
-      () => {
-        onAnimationEnd(comment.id);
-      },
-      comment.delay + comment.speed * 1000,
-    );
+    const totalAnimationTime =
+      comment.initialProgress !== undefined
+        ? comment.speed * (1 - comment.initialProgress) * 1000 // 残りの時間
+        : comment.speed * 1000; // 全体の時間
+
+    const hideTimer = setTimeout(() => {
+      onAnimationEnd(comment.id);
+    }, delay + totalAnimationTime);
 
     return () => {
       clearTimeout(showTimer);
       clearTimeout(hideTimer);
     };
-  }, [comment.id, comment.delay, comment.speed, onAnimationEnd]);
+  }, [
+    comment.id,
+    comment.delay,
+    comment.speed,
+    comment.initialProgress,
+    onAnimationEnd,
+  ]);
 
   if (!isVisible) return null;
+
+  // アニメーション遅延の計算（初期コメント用）
+  const getAnimationDelay = () => {
+    if (comment.initialProgress !== undefined) {
+      // 負の遅延を使用してアニメーションを途中から開始
+      return `-${comment.initialProgress * comment.speed}s`;
+    }
+    return "0s";
+  };
 
   return (
     <div
@@ -81,6 +100,7 @@ const Comment: React.FC<CommentProps> = memo(({ comment, onAnimationEnd }) => {
         right: "-300px",
         color: comment.color,
         animationDuration: `${comment.speed}s`,
+        animationDelay: getAnimationDelay(),
         ...getTextShadow(comment.type),
       }}
     >
